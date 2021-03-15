@@ -17,6 +17,9 @@ namespace Store.Data
         [Required] 
         public string LastName { get; set; }
 
+        [NotMapped]
+        public string Name { get => $"{FirstName} {LastName}"; }
+
         public bool Deleted { get; set; } = false;
 
 
