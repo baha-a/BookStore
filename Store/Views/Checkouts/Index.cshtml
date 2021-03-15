@@ -32,10 +32,24 @@
         {
             <tr class="@(item.Deleted?"deleted-row":"")">
                 <td>
-                    @Html.DisplayFor(modelItem => item.User.Name)
+                    @if (item.User.Deleted)
+                    {
+                        @Html.DisplayFor(modelItem => item.User.Name)
+                    }
+                    else
+                    {
+                        @Html.ActionLink(item.User.Name, "Details", "Users", new { Id = item.User.Id })
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Book.Author)
+                    @if (item.Book.Deleted)
+                    {
+                        @Html.DisplayFor(modelItem => item.Book.Title)
+                    }
+                    else
+                    {
+                        @Html.ActionLink(item.Book.Title, "Details", "Books", new { Id = item.Book.Id })
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CheckedOutDate)

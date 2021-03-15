@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.Book)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Book.Author)
+            @Html.DisplayFor(model => model.Book.Title)
         </dd class>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CheckedOutDate)
@@ -37,7 +37,8 @@
     
     <form asp-action="Delete">
         <label>
-            <input name="softdelete" type="checkbox" checked /> Soft Delete
+            <input name="softdelete" type="checkbox" value="true" checked/> Soft Delete
+            <input name="softdelete" type="hidden" value="false" />
         </label>
         <br />
         <input type="hidden" asp-for="Id" />

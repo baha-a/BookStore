@@ -31,7 +31,8 @@
     <form asp-action="Delete">
         
         <label>
-            <input name="softdelete" type="checkbox" checked /> Soft Delete
+            <input name="softdelete" type="checkbox" value="true" checked /> Soft Delete
+            <input name="softdelete" type="hidden" value="false"/>
         </label>
         <br />
         <input type="hidden" asp-for="Id" />

@@ -42,7 +42,7 @@ namespace Store.Controllers
 
         public IActionResult Create()
         {
-            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Author");
+            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title");
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name");
             return View();
         }
@@ -53,13 +53,18 @@ namespace Store.Controllers
         {
             if (ModelState.IsValid)
             {
-                checkout.CheckedOutDate = DateTime.Now;
-                checkout.DuoDate = DateTime.Now.AddWeeks(3);
-                _context.Add(checkout);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    checkout.CheckedOutDate = DateTime.Now;
+                    checkout.DuoDate = DateTime.Now.AddWeeks(3);
+                    _context.Add(checkout);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch { }
+                ViewData["DuplicateKey"] = true;
             }
-            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Author", checkout.BookId);
+            ViewData["BookId"] = new SelectList(_context.Books, "Id", "Title", checkout.BookId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name", checkout.UserId);
             return View(checkout);
         }
