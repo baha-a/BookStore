@@ -110,10 +110,16 @@ namespace Store.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, bool softdelete = true)
         {
             var book = await _context.Books.FindAsync(id);
-            _context.Books.Remove(book);
+            if (softdelete)
+            {
+                book.Deleted = true;
+                _context.Books.Update(book);
+            }
+            else
+                _context.Books.Remove(book);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

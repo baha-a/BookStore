@@ -28,26 +28,43 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Book.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckedOutDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DuoDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr class="@(item.Deleted?"deleted-row":"")">
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckedOutDate)
+                </td>
+                <td>
+                    @item.DuoDate.ToString("d")
+                </td>
+                <td>
+                    @if (item.Deleted)
+                    {
+                        <span> Deleted </span>
+                    }
+                    else
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a><span>-</span>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".table").DataTable();
+        });
+    </script>
+}

@@ -31,11 +31,15 @@
             @Html.DisplayNameFor(model => model.DuoDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DuoDate)
+            @Model.DuoDate.ToString("d")
         </dd>
     </dl>
     
     <form asp-action="Delete">
+        <label>
+            <input name="softdelete" type="checkbox" checked /> Soft Delete
+        </label>
+        <br />
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
