@@ -4,9 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Checkout</h4>
+<h4>Create new Checkout</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,13 +20,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="CheckedOutDate" class="control-label"></label>
-                <input asp-for="CheckedOutDate" class="form-control" />
-                <span asp-validation-for="CheckedOutDate" class="text-danger"></span>
+                <input asp-for="CheckedOutDate" class="form-control" readonly value="@DateTime.Now"/>
             </div>
             <div class="form-group">
                 <label asp-for="DuoDate" class="control-label"></label>
-                <input asp-for="DuoDate" class="form-control" />
-                <span asp-validation-for="DuoDate" class="text-danger"></span>
+                <input asp-for="DuoDate" class="form-control" readonly value="@DateTime.Now.AddDays(7 * 3)"/>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

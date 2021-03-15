@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Store.Data;
+using Store.Helpers;
 
 namespace Store.Controllers
 {
@@ -48,10 +49,12 @@ namespace Store.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,BookId,CheckedOutDate,DuoDate")] Checkout checkout)
+        public async Task<IActionResult> Create([Bind("Id,UserId,BookId")] Checkout checkout)
         {
             if (ModelState.IsValid)
             {
+                checkout.CheckedOutDate = DateTime.Now;
+                checkout.DuoDate = DateTime.Now.AddWeeks(3);
                 _context.Add(checkout);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
