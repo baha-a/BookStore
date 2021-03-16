@@ -73,3 +73,8 @@ body {
 .deleted-row{
     background-color: #fee1;
 }
+.footer-container {
+    text-align: center;
+    font-weight: 300;
+    font-size: 14px;
+}
